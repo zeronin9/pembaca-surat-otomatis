@@ -7,7 +7,6 @@ import {
   normalizeLetterExtraction,
   formatWhatsAppSummary,
   filterLetters,
-  generateLettersCsv,
   SEED_ARCHIVED_LETTERS,
 } from './letterUtils';
 
@@ -103,17 +102,4 @@ test('filterLetters filters by query across nomor, perihal, pengirim and jenisSu
   const byJenis = filterLetters(SEED_ARCHIVED_LETTERS, '', 'Surat Permohonan');
   assert.equal(byJenis.length, 1);
   assert.equal(byJenis[0].id, 'arsip-003');
-});
-
-test('generateLettersCsv prepends UTF-8 BOM and escapes commas and quotes', () => {
-  const csv = generateLettersCsv([
-    {
-      ...SEED_ARCHIVED_LETTERS[0],
-      perihal: 'Undangan "Rapat", Koordinasi',
-    },
-  ]);
-
-  assert.equal(csv.startsWith('\uFEFF'), true);
-  assert.match(csv, /"Undangan ""Rapat"", Koordinasi"/);
-  assert.match(csv, /045\/UND\/DISKOMINFO\/XI\/2026/);
 });

@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react';
-import { Download, Eye, FileSpreadsheet, Search, Trash2 } from 'lucide-react';
+import { Eye, FileSpreadsheet, Search, Trash2 } from 'lucide-react';
 import type { ArchivedLetter } from '../types/letter';
 import {
   filterLetters,
-  generateLettersCsv,
   JENIS_SURAT_OPTIONS,
 } from '../utils/letterUtils';
 
@@ -21,22 +20,6 @@ export function ArchiveTable({ letters, onViewDetail, onDelete }: ArchiveTablePr
     () => filterLetters(letters, searchQuery, jenisFilter),
     [letters, searchQuery, jenisFilter],
   );
-
-  const handleExportCsv = () => {
-    if (letters.length === 0) return;
-    const csvContent = generateLettersCsv(letters);
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const today = new Date().toISOString().slice(0, 10);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `arsip-surat-${today}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
 
   return (
     <section
@@ -83,16 +66,6 @@ export function ArchiveTable({ letters, onViewDetail, onDelete }: ArchiveTablePr
               </option>
             ))}
           </select>
-
-          <button
-            type="button"
-            onClick={handleExportCsv}
-            disabled={letters.length === 0}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 disabled:opacity-45 transition-colors whitespace-nowrap shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-          >
-            <Download className="h-4 w-4 text-blue-700" aria-hidden="true" />
-            <span>Export ke CSV</span>
-          </button>
         </div>
       </div>
 

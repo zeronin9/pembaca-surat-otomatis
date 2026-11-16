@@ -16,24 +16,6 @@ export function Header({ totalLetters }: HeaderProps) {
           <span>Pembaca Surat Otomatis</span>
         </a>
 
-        <nav
-          aria-label="Navigasi utama"
-          className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600"
-        >
-          <a
-            href="#unggah-dokumen"
-            className="hover:text-slate-900 transition-colors whitespace-nowrap shrink-0"
-          >
-            Unggah Dokumen
-          </a>
-          <a
-            href="#arsip-surat"
-            className="hover:text-slate-900 transition-colors whitespace-nowrap shrink-0"
-          >
-            Riwayat Arsip
-          </a>
-        </nav>
-
         <div className="flex items-center gap-3 shrink-0">
           <div
             data-testid="archive-counter"

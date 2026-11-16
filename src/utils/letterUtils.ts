@@ -226,54 +226,6 @@ export function filterLetters(
   });
 }
 
-function escapeCsvCell(value: string): string {
-  const sanitized = value.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  if (/[",\n]/.test(sanitized)) {
-    return `"${sanitized.replace(/"/g, '""')}"`;
-  }
-  return sanitized;
-}
-
-export function generateLettersCsv(letters: ArchivedLetter[]): string {
-  const headers = [
-    'ID',
-    'Jenis Surat',
-    'Nomor Surat',
-    'Tanggal Surat',
-    'Perihal / Judul Surat',
-    'Pengirim / Instansi Asal',
-    'Tujuan / Penerima',
-    'Lampiran',
-    'Ringkasan Isi Surat',
-    'Poin Penting / Tindak Lanjut',
-    'Nama File',
-    'Waktu Disimpan',
-  ];
-
-  const rows = letters.map((letter) =>
-    [
-      letter.id,
-      letter.jenisSurat,
-      letter.nomorSurat,
-      letter.tanggalSurat,
-      letter.perihal,
-      letter.pengirim,
-      letter.tujuan,
-      letter.lampiran,
-      letter.ringkasan,
-      letter.poinPenting,
-      letter.namaFile,
-      letter.savedAt,
-    ]
-      .map((cell) => escapeCsvCell(cell ?? ''))
-      .join(','),
-  );
-
-  const csvBody = [headers.map(escapeCsvCell).join(','), ...rows].join('\r\n');
-  // UTF-8 BOM ensures Microsoft Excel opens Indonesian characters & columns cleanly
-  return `\uFEFF${csvBody}`;
-}
-
 export const SEED_ARCHIVED_LETTERS: ArchivedLetter[] = [
   {
     id: 'arsip-001',
