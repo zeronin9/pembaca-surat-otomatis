@@ -1,0 +1,6 @@
+{
+  "name": "Pembaca Surat Otomatis",
+  "description": "Aplikasi pembaca dan ekstraksi informasi surat otomatis menggunakan Gemini AI dengan tampilan split-screen, arsip digital, dan export CSV.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
