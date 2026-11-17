@@ -32,11 +32,13 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
   };
 
   return (
-    <div className="flex flex-col rounded-xl border border-slate-200 bg-white overflow-hidden h-full">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3">
+    <div className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden h-full transition-colors">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-4 py-3">
         <div className="min-w-0">
-          <h2 className="text-sm font-semibold text-slate-900">Preview Dokumen Asli</h2>
-          <p className="text-xs text-slate-500 truncate mt-0.5">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+            Preview Dokumen Asli
+          </h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
             <span>{document.isPdf ? 'PDF' : 'Gambar'}</span>
             <span aria-hidden="true" className="mx-1.5">·</span>
             <span className="font-mono tabular-nums">{formatSize(document.sizeBytes)}</span>
@@ -50,12 +52,12 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
               onClick={handleZoomOut}
               disabled={fitMode === 'custom' && zoomPercent <= 50}
               aria-label="Perkecil tampilan gambar"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-40 transition-colors"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
             >
               <ZoomOut className="h-4 w-4" aria-hidden="true" />
             </button>
             <span
-              className="px-2 text-xs font-mono font-medium tabular-nums text-slate-700 min-w-[3.5rem] text-center"
+              className="px-2 text-xs font-mono font-medium tabular-nums text-slate-700 dark:text-slate-300 min-w-[3.5rem] text-center"
               aria-live="polite"
             >
               {fitMode === 'fit' ? 'Fit' : `${zoomPercent}%`}
@@ -65,7 +67,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
               onClick={handleZoomIn}
               disabled={fitMode === 'custom' && zoomPercent >= 250}
               aria-label="Perbesar tampilan gambar"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-40 transition-colors"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
             >
               <ZoomIn className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -76,8 +78,8 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
               aria-pressed={fitMode === 'fit'}
               className={`ml-1 inline-flex h-8 items-center gap-1 rounded-md border px-2.5 text-xs font-medium transition-colors whitespace-nowrap ${
                 fitMode === 'fit'
-                  ? 'border-blue-200 bg-blue-50 text-blue-800'
-                  : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-100'
+                  ? 'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700'
               }`}
             >
               {fitMode === 'fit' ? (
@@ -92,7 +94,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
                 type="button"
                 onClick={handleFitReset}
                 aria-label="Reset zoom gambar"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 transition-colors"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
               >
                 <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
@@ -101,7 +103,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
         )}
       </div>
 
-      <div className="relative flex-1 bg-slate-100 min-h-[460px] lg:min-h-[680px] overflow-auto">
+      <div className="relative flex-1 bg-slate-100 dark:bg-slate-950 min-h-[460px] lg:min-h-[680px] overflow-auto">
         {document.isPdf ? (
           <iframe
             src={document.previewUrl}
@@ -121,8 +123,8 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
               }
               className={
                 fitMode === 'fit'
-                  ? 'max-h-[640px] w-auto max-w-full rounded border border-slate-200 bg-white object-contain shadow-sm'
-                  : 'h-auto rounded border border-slate-200 bg-white shadow-sm'
+                  ? 'max-h-[640px] w-auto max-w-full rounded border border-slate-200 dark:border-slate-700 bg-white object-contain shadow-sm'
+                  : 'h-auto rounded border border-slate-200 dark:border-slate-700 bg-white shadow-sm'
               }
             />
           </div>

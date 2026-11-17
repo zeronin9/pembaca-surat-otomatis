@@ -184,19 +184,21 @@ export function LetterDetailModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-detail-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/55 p-3 sm:p-5"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/55 dark:bg-black/75 p-3 sm:p-5"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-5xl rounded-xl border border-slate-200 bg-white shadow-xl overflow-hidden max-h-[92vh] flex flex-col"
+        className="w-full max-w-5xl rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden max-h-[92vh] flex flex-col transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 bg-slate-50 px-6 py-4">
+        <div className="flex items-start justify-between gap-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-6 py-4">
           <div className="min-w-0">
-            <p className="text-xs font-medium text-blue-700">{letter.jenisSurat}</p>
+            <p className="text-xs font-medium text-blue-700 dark:text-blue-400">
+              {letter.jenisSurat}
+            </p>
             <h3
               id="modal-detail-title"
-              className="mt-0.5 text-base font-bold text-slate-900 leading-snug"
+              className="mt-0.5 text-base font-bold text-slate-900 dark:text-slate-100 leading-snug"
             >
               {letter.perihal || 'Detail Surat'}
             </h3>
@@ -205,60 +207,80 @@ export function LetterDetailModal({
             type="button"
             onClick={onClose}
             aria-label="Tutup modal detail"
-            className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-200 hover:text-slate-900 transition-colors shrink-0"
+            className="rounded-lg p-1.5 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 transition-colors shrink-0"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+        <div className="flex-1 overflow-y-auto grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800">
           {/* Kolom Kiri: Metadata & Ringkasan */}
           <div className="lg:col-span-6 p-6 space-y-5">
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
               <div>
-                <dt className="text-xs font-semibold text-slate-500">Nomor Surat</dt>
-                <dd className="mt-1 font-mono text-slate-900 break-words">
+                <dt className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Nomor Surat
+                </dt>
+                <dd className="mt-1 font-mono text-slate-900 dark:text-slate-100 break-words">
                   {letter.nomorSurat || '-'}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold text-slate-500">Tanggal Surat</dt>
-                <dd className="mt-1 font-mono tabular-nums text-slate-900">
+                <dt className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Tanggal Surat
+                </dt>
+                <dd className="mt-1 font-mono tabular-nums text-slate-900 dark:text-slate-100">
                   {letter.tanggalSurat || '-'}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold text-slate-500">Pengirim / Instansi Asal</dt>
-                <dd className="mt-1 text-slate-900">{letter.pengirim || '-'}</dd>
+                <dt className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Pengirim / Instansi Asal
+                </dt>
+                <dd className="mt-1 text-slate-900 dark:text-slate-100">
+                  {letter.pengirim || '-'}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold text-slate-500">Tujuan / Penerima</dt>
-                <dd className="mt-1 text-slate-900">{letter.tujuan || '-'}</dd>
+                <dt className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Tujuan / Penerima
+                </dt>
+                <dd className="mt-1 text-slate-900 dark:text-slate-100">
+                  {letter.tujuan || '-'}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold text-slate-500">Lampiran</dt>
-                <dd className="mt-1 text-slate-900">{letter.lampiran || '-'}</dd>
+                <dt className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Lampiran
+                </dt>
+                <dd className="mt-1 text-slate-900 dark:text-slate-100">
+                  {letter.lampiran || '-'}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold text-slate-500">Nama File Sumber</dt>
-                <dd className="mt-1 font-mono text-xs text-slate-700 break-all">
+                <dt className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Nama File Sumber
+                </dt>
+                <dd className="mt-1 font-mono text-xs text-slate-700 dark:text-slate-300 break-all">
                   {previewAsset?.fileName || letter.namaFile || '-'}
                 </dd>
               </div>
             </dl>
 
-            <div className="border-t border-slate-200 pt-4 space-y-4 text-sm">
+            <div className="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-4 text-sm">
               <div>
-                <h4 className="text-xs font-semibold text-slate-500">Ringkasan Isi Surat</h4>
-                <p className="mt-1.5 text-slate-800 leading-relaxed whitespace-pre-line">
+                <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Ringkasan Isi Surat
+                </h4>
+                <p className="mt-1.5 text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">
                   {letter.ringkasan || '-'}
                 </p>
               </div>
               <div>
-                <h4 className="text-xs font-semibold text-slate-500">
+                <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                   Poin Penting / Tindak Lanjut
                 </h4>
-                <p className="mt-1.5 text-slate-800 leading-relaxed whitespace-pre-line">
+                <p className="mt-1.5 text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">
                   {letter.poinPenting || '-'}
                 </p>
               </div>
@@ -266,7 +288,7 @@ export function LetterDetailModal({
           </div>
 
           {/* Kolom Kanan: Lampiran File Asli */}
-          <div className="lg:col-span-6 flex flex-col bg-slate-50/70">
+          <div className="lg:col-span-6 flex flex-col bg-slate-50/70 dark:bg-slate-950/60">
             <input
               ref={fileInputRef}
               id="detail-attach-file-input"
@@ -277,11 +299,13 @@ export function LetterDetailModal({
               className="sr-only"
             />
 
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 bg-white px-4 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
               <div className="min-w-0">
-                <h4 className="text-xs font-semibold text-slate-800">File Asli Surat</h4>
+                <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                  File Asli Surat
+                </h4>
                 {previewAsset ? (
-                  <p className="text-xs text-slate-500 truncate mt-0.5">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
                     <span>{previewAsset.isPdf ? 'PDF' : 'Gambar'}</span>
                     <span aria-hidden="true" className="mx-1.5">·</span>
                     <span className="font-mono tabular-nums">
@@ -289,7 +313,9 @@ export function LetterDetailModal({
                     </span>
                   </p>
                 ) : (
-                  <p className="text-xs text-slate-500 mt-0.5">Belum ada file terlampir</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Belum ada file terlampir
+                  </p>
                 )}
               </div>
 
@@ -308,11 +334,11 @@ export function LetterDetailModal({
                       }}
                       disabled={fitMode === 'custom' && zoomPercent <= 50}
                       aria-label="Perkecil lampiran gambar"
-                      className="inline-flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-40"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
                     >
                       <ZoomOut className="h-3.5 w-3.5" aria-hidden="true" />
                     </button>
-                    <span className="px-1.5 text-xs font-mono tabular-nums text-slate-700 min-w-[3rem] text-center">
+                    <span className="px-1.5 text-xs font-mono tabular-nums text-slate-700 dark:text-slate-300 min-w-[3rem] text-center">
                       {fitMode === 'fit' ? 'Fit' : `${zoomPercent}%`}
                     </span>
                     <button
@@ -323,7 +349,7 @@ export function LetterDetailModal({
                       }}
                       disabled={fitMode === 'custom' && zoomPercent >= 250}
                       aria-label="Perbesar lampiran gambar"
-                      className="inline-flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-40"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
                     >
                       <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
                     </button>
@@ -337,8 +363,8 @@ export function LetterDetailModal({
                       aria-pressed={fitMode === 'fit'}
                       className={`inline-flex h-7 items-center gap-1 rounded border px-2 text-xs font-medium transition-colors whitespace-nowrap ${
                         fitMode === 'fit'
-                          ? 'border-blue-200 bg-blue-50 text-blue-800'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-100'
+                          ? 'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300'
+                          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700'
                       }`}
                     >
                       {fitMode === 'fit' ? (
@@ -356,7 +382,7 @@ export function LetterDetailModal({
                           setZoomPercent(100);
                         }}
                         aria-label="Reset zoom lampiran"
-                        className="inline-flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-100"
+                        className="inline-flex h-7 w-7 items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                       >
                         <RotateCcw className="h-3 w-3" aria-hidden="true" />
                       </button>
@@ -369,18 +395,24 @@ export function LetterDetailModal({
                     <button
                       type="button"
                       onClick={handleDownloadFile}
-                      className="inline-flex h-7 items-center gap-1 rounded border border-slate-200 bg-white px-2.5 text-xs font-medium text-slate-700 hover:bg-slate-100 transition-colors whitespace-nowrap"
+                      className="inline-flex h-7 items-center gap-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
                     >
-                      <Download className="h-3.5 w-3.5 text-blue-700" aria-hidden="true" />
+                      <Download
+                        className="h-3.5 w-3.5 text-blue-700 dark:text-blue-400"
+                        aria-hidden="true"
+                      />
                       <span>Unduh</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isAttaching}
-                      className="inline-flex h-7 items-center gap-1 rounded border border-slate-200 bg-white px-2.5 text-xs font-medium text-slate-700 hover:bg-slate-100 transition-colors whitespace-nowrap disabled:opacity-50"
+                      className="inline-flex h-7 items-center gap-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors whitespace-nowrap disabled:opacity-50"
                     >
-                      <FileUp className="h-3.5 w-3.5 text-slate-600" aria-hidden="true" />
+                      <FileUp
+                        className="h-3.5 w-3.5 text-slate-600 dark:text-slate-300"
+                        aria-hidden="true"
+                      />
                       <span>Ganti File</span>
                     </button>
                   </>
@@ -391,17 +423,23 @@ export function LetterDetailModal({
             {attachError && (
               <div
                 role="alert"
-                className="mx-4 mt-3 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-900"
+                className="mx-4 mt-3 flex items-start gap-2 rounded-lg border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40 px-3 py-2 text-xs text-red-900 dark:text-red-200"
               >
-                <AlertCircle className="h-4 w-4 text-red-600 shrink-0 mt-0.5" aria-hidden="true" />
+                <AlertCircle
+                  className="h-4 w-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5"
+                  aria-hidden="true"
+                />
                 <span>{attachError}</span>
               </div>
             )}
 
             <div className="flex-1 min-h-[340px] lg:min-h-[440px] overflow-auto p-4 flex flex-col">
               {isLoadingFile || isAttaching ? (
-                <div className="flex flex-1 flex-col items-center justify-center gap-2 text-slate-600">
-                  <Loader2 className="h-5 w-5 animate-spin text-blue-700" aria-hidden="true" />
+                <div className="flex flex-1 flex-col items-center justify-center gap-2 text-slate-600 dark:text-slate-400">
+                  <Loader2
+                    className="h-5 w-5 animate-spin text-blue-700 dark:text-blue-400"
+                    aria-hidden="true"
+                  />
                   <p className="text-xs font-medium">
                     {isAttaching ? 'Menyimpan lampiran file asli...' : 'Memuat file asli surat...'}
                   </p>
@@ -411,7 +449,7 @@ export function LetterDetailModal({
                   <iframe
                     src={previewAsset.url}
                     title={`Preview lampiran PDF ${previewAsset.fileName}`}
-                    className="h-full min-h-[400px] w-full rounded-lg border border-slate-200 bg-white"
+                    className="h-full min-h-[400px] w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white"
                   />
                 ) : (
                   <div className="flex flex-1 items-start justify-center">
@@ -426,8 +464,8 @@ export function LetterDetailModal({
                       }
                       className={
                         fitMode === 'fit'
-                          ? 'max-h-[420px] w-auto max-w-full rounded border border-slate-200 bg-white object-contain shadow-sm'
-                          : 'h-auto rounded border border-slate-200 bg-white shadow-sm'
+                          ? 'max-h-[420px] w-auto max-w-full rounded border border-slate-200 dark:border-slate-700 bg-white object-contain shadow-sm'
+                          : 'h-auto rounded border border-slate-200 dark:border-slate-700 bg-white shadow-sm'
                       }
                     />
                   </div>
@@ -439,23 +477,23 @@ export function LetterDetailModal({
                   onDrop={handleDrop}
                   className={`flex flex-1 flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-colors ${
                     isDragging
-                      ? 'border-blue-600 bg-blue-50/70'
-                      : 'border-slate-300 bg-white'
+                      ? 'border-blue-600 bg-blue-50/70 dark:border-blue-500 dark:bg-blue-950/30'
+                      : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900'
                   }`}
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-blue-700">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-blue-700 dark:text-blue-400">
                     <FileUp className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <p className="mt-3 text-sm font-semibold text-slate-900">
+                  <p className="mt-3 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     Belum ada file asli yang terlampir
                   </p>
-                  <p className="mt-1 max-w-xs text-xs text-slate-500">
+                  <p className="mt-1 max-w-xs text-xs text-slate-500 dark:text-slate-400">
                     Lampirkan file PDF atau gambar hasil scan surat ini agar dapat dilihat langsung dan diunduh kapan saja dari arsip.
                   </p>
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-800 transition-colors whitespace-nowrap"
+                    className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-500 px-4 py-2 text-xs font-semibold text-white transition-colors whitespace-nowrap"
                   >
                     <FileUp className="h-3.5 w-3.5" aria-hidden="true" />
                     <span>Lampirkan File Asli</span>
@@ -466,20 +504,20 @@ export function LetterDetailModal({
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-3 border-t border-slate-200 bg-slate-50 px-6 py-3.5">
+        <div className="flex items-center justify-between gap-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-6 py-3.5">
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
           >
             {copied ? (
               <>
-                <Check className="h-4 w-4 text-emerald-600" aria-hidden="true" />
-                <span className="text-emerald-700">Tersalin!</span>
+                <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                <span className="text-emerald-700 dark:text-emerald-300">Tersalin!</span>
               </>
             ) : (
               <>
-                <Copy className="h-4 w-4 text-slate-600" aria-hidden="true" />
+                <Copy className="h-4 w-4 text-slate-600 dark:text-slate-300" aria-hidden="true" />
                 <span>Salin Info Surat</span>
               </>
             )}
@@ -488,7 +526,7 @@ export function LetterDetailModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 transition-colors whitespace-nowrap"
+            className="rounded-lg bg-slate-900 dark:bg-slate-700 px-4 py-2 text-sm font-semibold text-white dark:text-slate-100 hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors whitespace-nowrap"
           >
             Tutup
           </button>

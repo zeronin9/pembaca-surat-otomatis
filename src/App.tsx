@@ -17,6 +17,8 @@ import {
   SEED_ARCHIVED_LETTERS,
   validateUploadFile,
 } from './utils/letterUtils';
+import { applyTheme, getInitialTheme, toggleThemeMode } from './utils/theme';
+import type { ThemeMode } from './utils/theme';
 
 const STORAGE_KEY = 'pembaca_surat_arsip_v1';
 
@@ -62,10 +64,15 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [selectedDetail, setSelectedDetail] = useState<ArchivedLetter | null>(null);
+  const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
 
   const activeFileRef = useRef<{ file: File; mimeType: string } | null>(null);
   const previewUrlRef = useRef<string | null>(null);
   const requestIdRef = useRef<number>(0);
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   useEffect(() => {
     try {
@@ -105,6 +112,12 @@ export default function App() {
 
       if (currentRequestId !== requestIdRef.current) {
         return;
+      }
+
+      if (response.status === 413) {
+        throw new Error(
+          'Ukuran file melebihi batas unggahan server serverless (maksimal ~3 MB di Vercel). Silakan kompres dokumen atau lengkapi form secara manual.',
+        );
       }
 
       if (!response.ok) {
@@ -268,25 +281,35 @@ export default function App() {
   };
 
   return (
-    <div id="top" className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-      <Header totalLetters={archivedLetters.length} />
+    <div
+      id="top"
+      className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors"
+    >
+      <Header
+        totalLetters={archivedLetters.length}
+        theme={theme}
+        onToggleTheme={() => setTheme((prev) => toggleThemeMode(prev))}
+      />
 
       <main className="flex-1 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
         {successMessage && (
           <div
             role="status"
             aria-live="polite"
-            className="flex items-center justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+            className="flex items-center justify-between gap-3 rounded-lg border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50 dark:bg-emerald-950/40 px-4 py-3 text-sm text-emerald-900 dark:text-emerald-200"
           >
             <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" aria-hidden="true" />
+              <CheckCircle2
+                className="h-4 w-4 text-emerald-700 dark:text-emerald-400 shrink-0"
+                aria-hidden="true"
+              />
               <span>{successMessage}</span>
             </div>
             <button
               type="button"
               onClick={() => setSuccessMessage(null)}
               aria-label="Tutup notifikasi sukses"
-              className="rounded-md p-1 text-emerald-700 hover:bg-emerald-100 transition-colors"
+              className="rounded-md p-1 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -321,8 +344,8 @@ export default function App() {
         />
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-2 px-4 py-4 sm:px-6 lg:px-8 text-xs text-slate-500">
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors">
+        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-2 px-4 py-4 sm:px-6 lg:px-8 text-xs text-slate-500 dark:text-slate-400">
           <span>Pembaca Surat Otomatis · Penyimpanan arsip lokal di browser</span>
           <span>Format didukung: PDF, JPG, PNG, WEBP</span>
         </div>
